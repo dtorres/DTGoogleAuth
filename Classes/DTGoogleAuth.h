@@ -35,4 +35,6 @@ typedef ACErrorCode DTGoogleErrorCode;
 
 @property (nonatomic, readonly) NSString *oauthToken;
 
+@property (nonatomic, readonly) BOOL isCancelled;
+
 @end

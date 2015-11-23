@@ -38,6 +38,8 @@
 @property (nonatomic, strong) NSString *secretIdentifier;
 @property (nonatomic, strong) NSString *clientIdentifier;
 @property (nonatomic, strong) DTGoogleAuthHandler handler;
+@property (nonatomic, readwrite) BOOL isCancelled;
+
 #if defined(__IPHONE_OS_VERSION_MIN_REQUIRED)
 @property (nonatomic, weak) UIViewController *safariVC;
 #endif
@@ -266,14 +268,23 @@ __weak static NSURLSession *_session;
 
 - (void)safariViewControllerDidFinish:(nonnull UIViewController *)controller
 {
+    self.isCancelled = YES;
+    
     DTGoogleAuthHandler handler = self.handler;
     self.handler = nil;
-    [controller dismissViewControllerAnimated:YES completion:^{
+    
+    if (controller.isBeingDismissed) {
         if (handler) {
-            NSError *error = [NSError errorWithDomain:DTGoogleErrorDomain code:ACErrorAccountAuthenticationFailed userInfo:nil];
-            handler(nil, error);
+            handler(nil, nil);
         }
-    }];
+    } else {
+        [controller dismissViewControllerAnimated:YES completion:^{
+            if (handler) {
+                handler(nil, nil);
+            }
+        }];
+    }
+    
 }
 #endif
 
