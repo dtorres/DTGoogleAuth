@@ -1,12 +1,14 @@
 Pod::Spec.new do |s|
   s.name             = "DTGoogleAuth"
-  s.version          = "0.2.0"
+  s.version          = "0.3.0"
   s.summary          = "Simple authentication with google credentials"
   s.homepage         = "https://github.com/dtorres/DTGoogleAuth"
   s.license          = 'MIT'
   s.author           = { "Diego Torres" => "contact@dtorres.me" }
   s.source           = { :git => "https://github.com/dtorres/DTGoogleAuth.git", :tag => s.version.to_s }
   s.social_media_url = 'https://twitter.com/dtorres'
+  s.ios.deployment_target = '8.0'
+  s.osx.deployment_target = '10.10'
 
   s.default_subspec = 'Core'
 
