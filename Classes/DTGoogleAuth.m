@@ -275,12 +275,12 @@ __weak static NSURLSession *_session;
     
     if (controller.isBeingDismissed) {
         if (handler) {
-            handler(nil, nil);
+            handler(self, nil);
         }
     } else {
         [controller dismissViewControllerAnimated:YES completion:^{
             if (handler) {
-                handler(nil, nil);
+                handler(self, nil);
             }
         }];
     }
