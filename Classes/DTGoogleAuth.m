@@ -273,18 +273,13 @@ __weak static NSURLSession *_session;
     DTGoogleAuthHandler handler = self.handler;
     self.handler = nil;
     
-    if (controller.isBeingDismissed) {
-        if (handler) {
-            handler(self, nil);
-        }
-    } else {
-        [controller dismissViewControllerAnimated:YES completion:^{
-            if (handler) {
-                handler(self, nil);
-            }
-        }];
+    if (controller.presentingViewController) {
+        [controller dismissViewControllerAnimated:YES completion:NULL];
     }
     
+    if (handler) {
+        handler(self, nil);
+    }
 }
 #endif
 
